@@ -51,9 +51,8 @@ public class PNearBlueLeft extends LinearOpMode {
         waitForStart();
 
         //Steps go here
-        while(opModeIsActive()){
-            DriveRight(1, 5);
-        }
+        DriveRight(1, 5);
+
 
     }
     //Methods for moving
@@ -156,7 +155,7 @@ public class PNearBlueLeft extends LinearOpMode {
         br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Convert distance to ticks
-        int ticks = (int)(360/(3*3.1415)*distance);
+        int ticks = (int)((360/(3*3.1415))*distance);
 
         //Set target position
         fl.setTargetPosition(ticks);

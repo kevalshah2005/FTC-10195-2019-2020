@@ -51,10 +51,9 @@ public class PFarBlueLeft extends LinearOpMode {
         waitForStart();
 
         //Steps go here
-        while(opModeIsActive()){
-            DriveForward(1, 28);
-            DriveRight(1, 5);
-        }
+        DriveForward(1, 12);
+        DriveRight(1, 5);
+
 
     }
     //Methods for moving
@@ -72,9 +71,9 @@ public class PFarBlueLeft extends LinearOpMode {
 
         //Set target position
         fl.setTargetPosition(ticks);
-        fr.setTargetPosition(ticks);
+        fr.setTargetPosition(-ticks);
         bl.setTargetPosition(ticks);
-        br.setTargetPosition(ticks);
+        br.setTargetPosition(-ticks);
 
         //Set power
         fl.setPower(power);
@@ -87,7 +86,14 @@ public class PFarBlueLeft extends LinearOpMode {
         fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        while(fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy()) {
+            idle();
+        }
     }
+
+
+
     public void DriveBackward(double power, int distance)
     {
         //Reset encoders
@@ -101,9 +107,9 @@ public class PFarBlueLeft extends LinearOpMode {
 
         //Set target position
         fl.setTargetPosition(-ticks);
-        fr.setTargetPosition(-ticks);
+        fr.setTargetPosition(ticks);
         bl.setTargetPosition(-ticks);
-        br.setTargetPosition(-ticks);
+        br.setTargetPosition(ticks);
 
         //Set power
         fl.setPower(-power);
@@ -176,6 +182,10 @@ public class PFarBlueLeft extends LinearOpMode {
         fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        while(fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy()) {
+            idle();
+        }
     }
 
     public void TurnLeft(double power, int distance)
