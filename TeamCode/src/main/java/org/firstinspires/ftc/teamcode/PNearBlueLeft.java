@@ -242,6 +242,7 @@ public class PNearBlueLeft extends LinearOpMode {
         //Grab foundation
         FoundationServo1.setPosition(0.1);
         FoundationServo2.setPosition(0.7);
+
     }
 
     public void FoundationRelease()

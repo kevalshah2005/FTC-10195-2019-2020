@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@Autonomous(name="FPFarRed", group="Autonomous")
+@Autonomous(name="S1PNearBlue", group="Autonomous")
 //@Disabled
-public class FPFarRed extends LinearOpMode {
+public class S1PNearBlue extends LinearOpMode {
 
     //Declare motors
     DcMotor fl; //Front left wheel
@@ -53,16 +53,18 @@ public class FPFarRed extends LinearOpMode {
         //Steps go here
         while(opModeIsActive()){
             DriveForward(1, 30);
-            FoundationGrab();
-            DriveBackward(1, 32);
-            FoundationRelease();
-            DriveLeft(1, 48);
-            DriveForward(1, 28);
+            //Color sensor to detect skystone goes here
+            //Grabs skystone
+            DriveBackward(1, 28);
+            TurnLeft(1, 90);
+            DriveForward(1, 56);
+            //Puts down skystone
+            DriveBackward(1, 24);
         }
 
     }
-
     //Methods for moving
+
     public void DriveForward(double power, int distance)
     {
         //Reset encoders
@@ -182,7 +184,7 @@ public class FPFarRed extends LinearOpMode {
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    public void TurnLeft(double power, int distance)
+    public void TurnLeft(double power, int degrees)
     {
         //Reset encoders
         fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -191,7 +193,9 @@ public class FPFarRed extends LinearOpMode {
         br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Convert distance to ticks
+        int distance = (int) (18*(3.14159)*(degrees/360));
         int ticks = (int)((1120)/(3*3.14159))*(distance);
+
 
         //Set target position
         fl.setTargetPosition(-ticks);
@@ -212,7 +216,7 @@ public class FPFarRed extends LinearOpMode {
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
-    public void TurnRight(double power, int distance)
+    public void TurnRight(double power, int degrees)
     {
         //Reset encoders
         fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -221,6 +225,7 @@ public class FPFarRed extends LinearOpMode {
         br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Convert distance to ticks
+        int distance = (int) (18*(3.14159)*(degrees/360));
         int ticks = (int)((1120)/(3*3.14159))*(distance);
 
         //Set target position
