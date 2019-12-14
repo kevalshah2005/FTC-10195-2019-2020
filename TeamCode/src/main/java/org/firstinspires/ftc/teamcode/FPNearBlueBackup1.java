@@ -1,14 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@Autonomous(name="FPNearBlue", group="Autonomous")
-//@Disabled
-public class FPNearBlue extends LinearOpMode {
+@Autonomous(name="FPNearBlueBackup1", group="Autonomous")
+@Disabled
+public class FPNearBlueBackup1 extends LinearOpMode {
 
     //Declare motors
     DcMotor fl; //Front left wheel
@@ -89,6 +90,12 @@ public class FPNearBlue extends LinearOpMode {
         bl.setTargetPosition(ticks);
         br.setTargetPosition(ticks);
 
+        //Set power
+        fl.setPower(power);
+        fr.setPower(power);
+        bl.setPower(power);
+        br.setPower(power);
+
         //Get current position
         int flPos = fl.getCurrentPosition();
         int frPos = fr.getCurrentPosition();
@@ -139,6 +146,12 @@ public class FPNearBlue extends LinearOpMode {
         bl.setTargetPosition(-ticks);
         br.setTargetPosition(-ticks);
 
+        //Set power
+        fl.setPower(-power);
+        fr.setPower(-power);
+        bl.setPower(-power);
+        br.setPower(-power);
+
         //Get current position
         int flPos = fl.getCurrentPosition();
         int frPos = fr.getCurrentPosition();
@@ -151,12 +164,17 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+        fl.setPower(0);
+        fr.setPower(0);
+        bl.setPower(0);
+        br.setPower(0);
+
         while(blPos < ticks && flPos < ticks && brPos < ticks && frPos < ticks) {
             //While all encoder counts are less than the amount given
-            fl.setPower(-power);
-            fr.setPower(-power);
-            bl.setPower(-power);
-            br.setPower(-power);
+            fl.setPower(power);
+            fr.setPower(power);
+            bl.setPower(power);
+            br.setPower(power);
 
             //Get current position
             flPos = fl.getCurrentPosition();
@@ -164,11 +182,6 @@ public class FPNearBlue extends LinearOpMode {
             blPos = bl.getCurrentPosition();
             brPos = br.getCurrentPosition();
         }
-
-        fl.setPower(0);
-        fr.setPower(0);
-        bl.setPower(0);
-        br.setPower(0);
     }
 
     public void DriveLeft(double power, int distance)
@@ -188,6 +201,12 @@ public class FPNearBlue extends LinearOpMode {
         bl.setTargetPosition(ticks);
         br.setTargetPosition(-ticks);
 
+        //Set power
+        fl.setPower(-power);
+        fr.setPower(power);
+        bl.setPower(power);
+        br.setPower(-power);
+
         //Get current position
         int flPos = fl.getCurrentPosition();
         int frPos = fr.getCurrentPosition();
@@ -200,24 +219,14 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(blPos < ticks && flPos < ticks && brPos < ticks && frPos < ticks) {
-            //While all encoder counts are less than the amount given
-            fl.setPower(-power);
-            fr.setPower(-power);
-            bl.setPower(-power);
-            br.setPower(-power);
-
-            //Get current position
-            flPos = fl.getCurrentPosition();
-            frPos = fr.getCurrentPosition();
-            blPos = bl.getCurrentPosition();
-            brPos = br.getCurrentPosition();
-        }
-
         fl.setPower(0);
         fr.setPower(0);
         bl.setPower(0);
         br.setPower(0);
+
+        while(fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy()) {
+            idle();
+        }
     }
 
     public void DriveRight(double power, int distance)
@@ -237,6 +246,12 @@ public class FPNearBlue extends LinearOpMode {
         bl.setTargetPosition(-ticks);
         br.setTargetPosition(ticks);
 
+        //Set power
+        fl.setPower(power);
+        fr.setPower(-power);
+        bl.setPower(-power);
+        br.setPower(power);
+
         //Get current position
         int flPos = fl.getCurrentPosition();
         int frPos = fr.getCurrentPosition();
@@ -249,24 +264,14 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(blPos < ticks && flPos < ticks && brPos < ticks && frPos < ticks) {
-            //While all encoder counts are less than the amount given
-            fl.setPower(-power);
-            fr.setPower(-power);
-            bl.setPower(-power);
-            br.setPower(-power);
-
-            //Get current position
-            flPos = fl.getCurrentPosition();
-            frPos = fr.getCurrentPosition();
-            blPos = bl.getCurrentPosition();
-            brPos = br.getCurrentPosition();
-        }
-
         fl.setPower(0);
         fr.setPower(0);
         bl.setPower(0);
         br.setPower(0);
+
+        while(fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy()) {
+            idle();
+        }
     }
 
     public void TurnLeft(double power, int distance)
@@ -286,6 +291,12 @@ public class FPNearBlue extends LinearOpMode {
         bl.setTargetPosition(-ticks);
         br.setTargetPosition(ticks);
 
+        //Set power
+        fl.setPower(-power);
+        fr.setPower(power);
+        bl.setPower(-power);
+        br.setPower(power);
+
         //Get current position
         int flPos = fl.getCurrentPosition();
         int frPos = fr.getCurrentPosition();
@@ -298,27 +309,18 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(blPos < ticks && flPos < ticks && brPos < ticks && frPos < ticks) {
-            //While all encoder counts are less than the amount given
-            fl.setPower(-power);
-            fr.setPower(-power);
-            bl.setPower(-power);
-            br.setPower(-power);
-
-            //Get current position
-            flPos = fl.getCurrentPosition();
-            frPos = fr.getCurrentPosition();
-            blPos = bl.getCurrentPosition();
-            brPos = br.getCurrentPosition();
-        }
-
         fl.setPower(0);
         fr.setPower(0);
         bl.setPower(0);
         br.setPower(0);
+
+        while(fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy()) {
+            idle();
+        }
     }
 
-    public void TurnRight(double power, int distance) {
+    public void TurnRight(double power, int distance)
+    {
         //Reset encoders
         fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -326,13 +328,19 @@ public class FPNearBlue extends LinearOpMode {
         br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Convert distance to ticks
-        int ticks = (int) ((1120) / (3 * 3.14159)) * (distance);
+        int ticks = (int)((1120)/(3*3.14159))*(distance);
 
         //Set target position
         fl.setTargetPosition(ticks);
         fr.setTargetPosition(-ticks);
         bl.setTargetPosition(ticks);
         br.setTargetPosition(-ticks);
+
+        //Set power
+        fl.setPower(power);
+        fr.setPower(-power);
+        bl.setPower(power);
+        br.setPower(-power);
 
         //Get current position
         int flPos = fl.getCurrentPosition();
@@ -346,24 +354,14 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while (blPos < ticks && flPos < ticks && brPos < ticks && frPos < ticks) {
-            //While all encoder counts are less than the amount given
-            fl.setPower(-power);
-            fr.setPower(-power);
-            bl.setPower(-power);
-            br.setPower(-power);
-
-            //Get current position
-            flPos = fl.getCurrentPosition();
-            frPos = fr.getCurrentPosition();
-            blPos = bl.getCurrentPosition();
-            brPos = br.getCurrentPosition();
-        }
-
         fl.setPower(0);
         fr.setPower(0);
         bl.setPower(0);
         br.setPower(0);
+
+        while(fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy()) {
+            idle();
+        }
     }
 
     public void FoundationGrab()

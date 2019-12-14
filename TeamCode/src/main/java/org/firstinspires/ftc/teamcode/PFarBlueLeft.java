@@ -52,9 +52,9 @@ public class PFarBlueLeft extends LinearOpMode {
 
         //Steps go here
         DriveForward(1, 12);
-        DriveRight(1, 5);
-
-
+        StopRobot();
+        DriveRight(1, 10);
+        StopRobot();
     }
     //Methods for moving
 
@@ -70,10 +70,10 @@ public class PFarBlueLeft extends LinearOpMode {
         int ticks = (int)((1120)/(3*3.14159))*(distance);
 
         //Set target position
-        fl.setTargetPosition(ticks);
-        fr.setTargetPosition(-ticks);
-        bl.setTargetPosition(ticks);
-        br.setTargetPosition(-ticks);
+        fl.setTargetPosition(-ticks);
+        fr.setTargetPosition(ticks);
+        bl.setTargetPosition(-ticks);
+        br.setTargetPosition(ticks);
 
         //Set power
         fl.setPower(power);
@@ -106,10 +106,10 @@ public class PFarBlueLeft extends LinearOpMode {
         int ticks = (int)((1120)/(3*3.14159))*(distance);
 
         //Set target position
-        fl.setTargetPosition(-ticks);
-        fr.setTargetPosition(ticks);
-        bl.setTargetPosition(-ticks);
-        br.setTargetPosition(ticks);
+        fl.setTargetPosition(ticks);
+        fr.setTargetPosition(-ticks);
+        bl.setTargetPosition(ticks);
+        br.setTargetPosition(-ticks);
 
         //Set power
         fl.setPower(-power);
@@ -260,6 +260,16 @@ public class PFarBlueLeft extends LinearOpMode {
         //Release foundation
         FoundationServo1.setPosition(0.2);
         FoundationServo2.setPosition(0.6);
+    }
+
+    public void StopRobot()
+    {
+        //Stop the robot
+        fl.setPower(0);
+        fr.setPower(0);
+        bl.setPower(0);
+        br.setPower(0);
+
     }
 
 
