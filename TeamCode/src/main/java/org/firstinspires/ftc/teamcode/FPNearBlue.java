@@ -203,8 +203,8 @@ public class FPNearBlue extends LinearOpMode {
         while(blPos < ticks && flPos < ticks && brPos < ticks && frPos < ticks) {
             //While all encoder counts are less than the amount given
             fl.setPower(-power);
-            fr.setPower(-power);
-            bl.setPower(-power);
+            fr.setPower(power);
+            bl.setPower(power);
             br.setPower(-power);
 
             //Get current position
@@ -251,10 +251,10 @@ public class FPNearBlue extends LinearOpMode {
 
         while(blPos < ticks && flPos < ticks && brPos < ticks && frPos < ticks) {
             //While all encoder counts are less than the amount given
-            fl.setPower(-power);
+            fl.setPower(power);
             fr.setPower(-power);
             bl.setPower(-power);
-            br.setPower(-power);
+            br.setPower(power);
 
             //Get current position
             flPos = fl.getCurrentPosition();
@@ -301,9 +301,9 @@ public class FPNearBlue extends LinearOpMode {
         while(blPos < ticks && flPos < ticks && brPos < ticks && frPos < ticks) {
             //While all encoder counts are less than the amount given
             fl.setPower(-power);
-            fr.setPower(-power);
+            fr.setPower(power);
             bl.setPower(-power);
-            br.setPower(-power);
+            br.setPower(power);
 
             //Get current position
             flPos = fl.getCurrentPosition();
@@ -348,9 +348,9 @@ public class FPNearBlue extends LinearOpMode {
 
         while (blPos < ticks && flPos < ticks && brPos < ticks && frPos < ticks) {
             //While all encoder counts are less than the amount given
-            fl.setPower(-power);
+            fl.setPower(power);
             fr.setPower(-power);
-            bl.setPower(-power);
+            bl.setPower(power);
             br.setPower(-power);
 
             //Get current position
@@ -387,8 +387,5 @@ public class FPNearBlue extends LinearOpMode {
         fr.setPower(0);
         bl.setPower(0);
         br.setPower(0);
-
     }
-
-
 }
