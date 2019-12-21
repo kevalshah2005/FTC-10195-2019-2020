@@ -44,10 +44,6 @@ public class FPNearBlue extends LinearOpMode {
 
         //Miscellaneous
 
-        //Telemetry to say robot is ready
-        telemetry.addData("Status", "Initialized");
-        telemetry.update();
-
         //Wait for driver to press start
         waitForStart();
 
@@ -59,14 +55,17 @@ public class FPNearBlue extends LinearOpMode {
 
         //Steps go here
         while(opModeIsActive()){
-            DriveForward(1, 24);
-            StopRobot();
+            Telemetry();
+            DriveForward(0.5, 24);
+            sleep(1000);
             FoundationGrab();
-            DriveBackward(1, 22);
-            StopRobot();
+            sleep(1000);
+            DriveBackward(0.5, 22);
+            sleep(1000);
             FoundationRelease();
-            DriveRight(1, 48);
-            StopRobot();
+            sleep(1000);
+            DriveRight(0.5, 48);
+            break;
         }
 
     }
@@ -101,18 +100,17 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(blPos < ticks && flPos < ticks && brPos < ticks && frPos < ticks) {
-            //While all encoder counts are less than the amount given
-            fl.setPower(power);
-            fr.setPower(power);
-            bl.setPower(power);
-            br.setPower(power);
+        //While all encoder counts are less than the amount given
+        fl.setPower(power);
+        fr.setPower(power);
+        bl.setPower(power);
+        br.setPower(power);
 
-            //Get current position
-            flPos = fl.getCurrentPosition();
-            frPos = fr.getCurrentPosition();
-            blPos = bl.getCurrentPosition();
-            brPos = br.getCurrentPosition();
+        while((fr.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
+            telemetry.addData("flPos", flPos);
+            telemetry.addData("frPos", frPos);
+            telemetry.addData("blPos", blPos);
+            telemetry.addData("brPos", brPos);
         }
 
         fl.setPower(0);
@@ -123,7 +121,6 @@ public class FPNearBlue extends LinearOpMode {
 
     public void DriveBackward(double power, int distance)
     {
-
         //Reset encoders
         fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -151,18 +148,17 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(blPos < ticks && flPos < ticks && brPos < ticks && frPos < ticks) {
-            //While all encoder counts are less than the amount given
-            fl.setPower(-power);
-            fr.setPower(-power);
-            bl.setPower(-power);
-            br.setPower(-power);
+        //While all encoder counts are less than the amount given
+        fl.setPower(-power);
+        fr.setPower(-power);
+        bl.setPower(-power);
+        br.setPower(-power);
 
-            //Get current position
-            flPos = fl.getCurrentPosition();
-            frPos = fr.getCurrentPosition();
-            blPos = bl.getCurrentPosition();
-            brPos = br.getCurrentPosition();
+        while((fr.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
+            telemetry.addData("flPos", flPos);
+            telemetry.addData("frPos", frPos);
+            telemetry.addData("blPos", blPos);
+            telemetry.addData("brPos", brPos);
         }
 
         fl.setPower(0);
@@ -200,18 +196,17 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(blPos < ticks && flPos < ticks && brPos < ticks && frPos < ticks) {
-            //While all encoder counts are less than the amount given
-            fl.setPower(-power);
-            fr.setPower(power);
-            bl.setPower(power);
-            br.setPower(-power);
+        //While all encoder counts are less than the amount given
+        fl.setPower(-power);
+        fr.setPower(power);
+        bl.setPower(power);
+        br.setPower(-power);
 
-            //Get current position
-            flPos = fl.getCurrentPosition();
-            frPos = fr.getCurrentPosition();
-            blPos = bl.getCurrentPosition();
-            brPos = br.getCurrentPosition();
+        while((fr.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
+            telemetry.addData("flPos", flPos);
+            telemetry.addData("frPos", frPos);
+            telemetry.addData("blPos", blPos);
+            telemetry.addData("brPos", brPos);
         }
 
         fl.setPower(0);
@@ -249,18 +244,17 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(blPos < ticks && flPos < ticks && brPos < ticks && frPos < ticks) {
-            //While all encoder counts are less than the amount given
-            fl.setPower(power);
-            fr.setPower(-power);
-            bl.setPower(-power);
-            br.setPower(power);
+        //While all encoder counts are less than the amount given
+        fl.setPower(power);
+        fr.setPower(-power);
+        bl.setPower(-power);
+        br.setPower(power);
 
-            //Get current position
-            flPos = fl.getCurrentPosition();
-            frPos = fr.getCurrentPosition();
-            blPos = bl.getCurrentPosition();
-            brPos = br.getCurrentPosition();
+        while((fr.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
+            telemetry.addData("flPos", flPos);
+            telemetry.addData("frPos", frPos);
+            telemetry.addData("blPos", blPos);
+            telemetry.addData("brPos", brPos);
         }
 
         fl.setPower(0);
@@ -298,18 +292,17 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(blPos < ticks && flPos < ticks && brPos < ticks && frPos < ticks) {
-            //While all encoder counts are less than the amount given
-            fl.setPower(-power);
-            fr.setPower(power);
-            bl.setPower(-power);
-            br.setPower(power);
+        //While all encoder counts are less than the amount given
+        fl.setPower(-power);
+        fr.setPower(power);
+        bl.setPower(-power);
+        br.setPower(power);
 
-            //Get current position
-            flPos = fl.getCurrentPosition();
-            frPos = fr.getCurrentPosition();
-            blPos = bl.getCurrentPosition();
-            brPos = br.getCurrentPosition();
+        while((fr.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
+            telemetry.addData("flPos", flPos);
+            telemetry.addData("frPos", frPos);
+            telemetry.addData("blPos", blPos);
+            telemetry.addData("brPos", brPos);
         }
 
         fl.setPower(0);
@@ -326,7 +319,7 @@ public class FPNearBlue extends LinearOpMode {
         br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Convert distance to ticks
-        int ticks = (int) ((1120) / (3 * 3.14159)) * (distance);
+        int ticks = (int)((1120)/(3*3.14159))*(distance);
 
         //Set target position
         fl.setTargetPosition(ticks);
@@ -346,18 +339,17 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while (blPos < ticks && flPos < ticks && brPos < ticks && frPos < ticks) {
-            //While all encoder counts are less than the amount given
-            fl.setPower(power);
-            fr.setPower(-power);
-            bl.setPower(power);
-            br.setPower(-power);
+        //While all encoder counts are less than the amount given
+        fl.setPower(power);
+        fr.setPower(-power);
+        bl.setPower(power);
+        br.setPower(-power);
 
-            //Get current position
-            flPos = fl.getCurrentPosition();
-            frPos = fr.getCurrentPosition();
-            blPos = bl.getCurrentPosition();
-            brPos = br.getCurrentPosition();
+        while((fr.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
+            telemetry.addData("flPos", flPos);
+            telemetry.addData("frPos", frPos);
+            telemetry.addData("blPos", blPos);
+            telemetry.addData("brPos", brPos);
         }
 
         fl.setPower(0);
@@ -369,23 +361,25 @@ public class FPNearBlue extends LinearOpMode {
     public void FoundationGrab()
     {
         //Grab foundation
-        FoundationServo1.setPosition(0.1);
-        FoundationServo2.setPosition(0.7);
+        FoundationServo1.setPosition(-1);
+        FoundationServo2.setPosition(-1);
     }
 
     public void FoundationRelease()
     {
         //Release foundation
-        FoundationServo1.setPosition(0.2);
-        FoundationServo2.setPosition(0.6);
-    }
+        FoundationServo1.setPosition(0);
+        FoundationServo2.setPosition(0);
 
-    public void StopRobot()
-    {
-        //Stop the robot
         fl.setPower(0);
         fr.setPower(0);
         bl.setPower(0);
         br.setPower(0);
+    }
+
+    public void Telemetry()
+    {
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
     }
 }
