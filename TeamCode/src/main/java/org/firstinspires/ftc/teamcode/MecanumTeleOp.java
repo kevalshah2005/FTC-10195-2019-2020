@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "TeleOp", group = "A")
+@TeleOp(name = "MainTeleOp", group = "A")
 public class MecanumTeleOp extends OpMode {
 
     public DcMotor fl;//names the parts
@@ -57,14 +57,14 @@ public class MecanumTeleOp extends OpMode {
 
         fl.setPower(((lefty + rightx + leftx)*-1)*.5); //sets power (in a joystick its between 1 to -1)
         fr.setPower((lefty - rightx - leftx)*.5);
-        bl.setPower((lefty +  rightx - leftx)*.5);
+        bl.setPower((lefty +  rightx - leftx)*.5*-1);
         br.setPower((lefty - rightx + leftx)*.5);
 
         //sonic
         if (gamepad1.left_trigger == 1) {
             fl.setPower((lefty + rightx + leftx)*-1); //sets power (in a joystick its between 1 to -1)
             fr.setPower(lefty - rightx - leftx);
-            bl.setPower(lefty +  rightx - leftx);
+            bl.setPower(lefty +  rightx - leftx*-1);
             br.setPower(lefty - rightx + leftx);
         }
 
@@ -98,9 +98,9 @@ public class MecanumTeleOp extends OpMode {
         //telemetry.addData("Grab servo", grab.getPosition());
         telemetry.addData("Status", "Running");
         telemetry.addData("Front left", fl.getCurrentPosition());
-        telemetry.addData("Front left", fr.getCurrentPosition());
-        telemetry.addData("Front left", bl.getCurrentPosition());
-        telemetry.addData("Front left", br.getCurrentPosition());
+        telemetry.addData("Front right", fr.getCurrentPosition());
+        telemetry.addData("Back left", bl.getCurrentPosition());
+        telemetry.addData("Back right", br.getCurrentPosition());
         telemetry.update();
     }
 }
