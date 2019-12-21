@@ -55,10 +55,10 @@ public class MecanumTeleOp extends OpMode {
         double rightx = gamepad1.right_stick_x;
         double leftx = gamepad1.left_stick_x;
 
-        fl.setPower(((lefty + rightx + leftx)*-1)*.5); //sets power (in a joystick its between 1 to -1)
-        fr.setPower((lefty - rightx - leftx)*.5);
-        bl.setPower((lefty +  rightx - leftx)*.5*-1);
-        br.setPower((lefty - rightx + leftx)*.5);
+        fl.setPower(((lefty + rightx + leftx)*-1)); //sets power (in a joystick its between 1 to -1)
+        fr.setPower((lefty - rightx - leftx));
+        bl.setPower((lefty +  rightx - leftx)*-1);
+        br.setPower((lefty - rightx + leftx));
 
         //sonic
         if (gamepad1.left_trigger == 1) {

@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.RobotLog;
 
 
 @Autonomous(name="FPNearBlue", group="Autonomous")
@@ -100,18 +101,27 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        //While all encoder counts are less than the amount given
-        fl.setPower(power);
-        fr.setPower(power);
-        bl.setPower(power);
-        br.setPower(power);
-
-        while((fr.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
+        while(fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy() & opModeIsActive()) {
+            //Telemetry to show where the wheels are
             telemetry.addData("flPos", flPos);
             telemetry.addData("frPos", frPos);
             telemetry.addData("blPos", blPos);
             telemetry.addData("brPos", brPos);
+
+            //While all encoder counts are less than the amount given
+            fl.setPower(power);
+            fr.setPower(power);
+            bl.setPower(power);
+            br.setPower(power);
+
+            //Get current position
+            flPos = fl.getCurrentPosition();
+            frPos = fr.getCurrentPosition();
+            blPos = bl.getCurrentPosition();
+            brPos = br.getCurrentPosition();
         }
+
+        RobotLog.dd("Test", "Test");
 
         fl.setPower(0);
         fr.setPower(0);
@@ -148,17 +158,24 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        //While all encoder counts are less than the amount given
-        fl.setPower(-power);
-        fr.setPower(-power);
-        bl.setPower(-power);
-        br.setPower(-power);
-
-        while((fr.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
+        while(fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy() && opModeIsActive()) {
+            //Telemetry to show where the wheels are
             telemetry.addData("flPos", flPos);
             telemetry.addData("frPos", frPos);
             telemetry.addData("blPos", blPos);
             telemetry.addData("brPos", brPos);
+
+            //While all encoder counts are less than the amount given
+            fl.setPower(-power);
+            fr.setPower(-power);
+            bl.setPower(-power);
+            br.setPower(-power);
+
+            //Get current position
+            flPos = fl.getCurrentPosition();
+            frPos = fr.getCurrentPosition();
+            blPos = bl.getCurrentPosition();
+            brPos = br.getCurrentPosition();
         }
 
         fl.setPower(0);
@@ -196,17 +213,24 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        //While all encoder counts are less than the amount given
-        fl.setPower(-power);
-        fr.setPower(power);
-        bl.setPower(power);
-        br.setPower(-power);
-
-        while((fr.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
+        while(fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy() && opModeIsActive()) {
+            //Telemetry to show where the wheels are
             telemetry.addData("flPos", flPos);
             telemetry.addData("frPos", frPos);
             telemetry.addData("blPos", blPos);
             telemetry.addData("brPos", brPos);
+
+            //While all encoder counts are less than the amount given
+            fl.setPower(-power);
+            fr.setPower(power);
+            bl.setPower(power);
+            br.setPower(-power);
+
+            //Get current position
+            flPos = fl.getCurrentPosition();
+            frPos = fr.getCurrentPosition();
+            blPos = bl.getCurrentPosition();
+            brPos = br.getCurrentPosition();
         }
 
         fl.setPower(0);
@@ -244,17 +268,24 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        //While all encoder counts are less than the amount given
-        fl.setPower(power);
-        fr.setPower(-power);
-        bl.setPower(-power);
-        br.setPower(power);
-
-        while((fr.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
+        while(fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy() && opModeIsActive()) {
+            //Telemetry to show where the wheels are
             telemetry.addData("flPos", flPos);
             telemetry.addData("frPos", frPos);
             telemetry.addData("blPos", blPos);
             telemetry.addData("brPos", brPos);
+
+            //While all encoder counts are less than the amount given
+            fl.setPower(power);
+            fr.setPower(-power);
+            bl.setPower(-power);
+            br.setPower(power);
+
+            //Get current position
+            flPos = fl.getCurrentPosition();
+            frPos = fr.getCurrentPosition();
+            blPos = bl.getCurrentPosition();
+            brPos = br.getCurrentPosition();
         }
 
         fl.setPower(0);
@@ -292,17 +323,24 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        //While all encoder counts are less than the amount given
-        fl.setPower(-power);
-        fr.setPower(power);
-        bl.setPower(-power);
-        br.setPower(power);
-
-        while((fr.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
+        while(fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy() && opModeIsActive()) {
+            //Telemetry to show where the wheels are
             telemetry.addData("flPos", flPos);
             telemetry.addData("frPos", frPos);
             telemetry.addData("blPos", blPos);
             telemetry.addData("brPos", brPos);
+
+            //While all encoder counts are less than the amount given
+            fl.setPower(-power);
+            fr.setPower(power);
+            bl.setPower(-power);
+            br.setPower(power);
+
+            //Get current position
+            flPos = fl.getCurrentPosition();
+            frPos = fr.getCurrentPosition();
+            blPos = bl.getCurrentPosition();
+            brPos = br.getCurrentPosition();
         }
 
         fl.setPower(0);
@@ -339,17 +377,24 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        //While all encoder counts are less than the amount given
-        fl.setPower(power);
-        fr.setPower(-power);
-        bl.setPower(power);
-        br.setPower(-power);
-
-        while((fr.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
+        while(flPos < ticks && frPos < ticks && blPos < ticks && brPos < ticks && opModeIsActive()) {
+            //Telemetry to show where the wheels are
             telemetry.addData("flPos", flPos);
             telemetry.addData("frPos", frPos);
             telemetry.addData("blPos", blPos);
             telemetry.addData("brPos", brPos);
+
+            //While all encoder counts are less than the amount given
+            fl.setPower(power);
+            fr.setPower(-power);
+            bl.setPower(power);
+            br.setPower(-power);
+
+            //Get current position
+            flPos = fl.getCurrentPosition();
+            frPos = fr.getCurrentPosition();
+            blPos = bl.getCurrentPosition();
+            brPos = br.getCurrentPosition();
         }
 
         fl.setPower(0);
@@ -361,20 +406,15 @@ public class FPNearBlue extends LinearOpMode {
     public void FoundationGrab()
     {
         //Grab foundation
-        FoundationServo1.setPosition(-1);
-        FoundationServo2.setPosition(-1);
+        FoundationServo1.setPosition(0.1);
+        FoundationServo2.setPosition(0.7);
     }
 
     public void FoundationRelease()
     {
         //Release foundation
-        FoundationServo1.setPosition(0);
-        FoundationServo2.setPosition(0);
-
-        fl.setPower(0);
-        fr.setPower(0);
-        bl.setPower(0);
-        br.setPower(0);
+        FoundationServo1.setPosition(0.2);
+        FoundationServo2.setPosition(0.6);
     }
 
     public void Telemetry()
