@@ -29,6 +29,9 @@ public class MecanumTeleOp extends OpMode {
 //        lift = hardwareMap.dcMotor.get("lift");
 //        grab = hardwareMap.servo.get("grab");
 
+        fl.setDirection(DcMotor.Direction.REVERSE);
+        bl.setDirection(DcMotor.Direction.REVERSE);
+
         fl.setPower(0);
         fr.setPower(0);
         bl.setPower(0);
@@ -55,16 +58,16 @@ public class MecanumTeleOp extends OpMode {
         double rightx = gamepad1.right_stick_x;
         double leftx = gamepad1.left_stick_x;
 
-        fl.setPower(((lefty + rightx + leftx)*-1)); //sets power (in a joystick its between 1 to -1)
+        fl.setPower(((lefty + rightx + leftx))); //sets power (in a joystick its between 1 to -1)
         fr.setPower((lefty - rightx - leftx));
-        bl.setPower((lefty +  rightx - leftx)*-1);
+        bl.setPower((lefty +  rightx - leftx));
         br.setPower((lefty - rightx + leftx));
 
         //sonic
         if (gamepad1.left_trigger == 1) {
-            fl.setPower((lefty + rightx + leftx)*-1); //sets power (in a joystick its between 1 to -1)
+            fl.setPower((lefty + rightx + leftx)); //sets power (in a joystick its between 1 to -1)
             fr.setPower(lefty - rightx - leftx);
-            bl.setPower(lefty +  rightx - leftx*-1);
+            bl.setPower(lefty +  rightx - leftx);
             br.setPower(lefty - rightx + leftx);
         }
 

@@ -4,12 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.RobotLog;
 
 
-@Autonomous(name="FPNearBlue", group="Autonomous")
+@Autonomous(name="FPNearBlue2", group="Autonomous")
 //@Disabled
-public class FPNearBlue extends LinearOpMode {
+public class FPNearBlue2 extends LinearOpMode {
 
     //Declare motors
     DcMotor fl; //Front left wheel
@@ -34,7 +33,6 @@ public class FPNearBlue extends LinearOpMode {
         fl.setDirection(DcMotor.Direction.REVERSE);
         bl.setDirection(DcMotor.Direction.REVERSE);
 
-        //Run motors using encoders
         fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -45,10 +43,6 @@ public class FPNearBlue extends LinearOpMode {
         FoundationServo2 = hardwareMap.servo.get("servo2");
 
         //Miscellaneous
-        fl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        fr.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        bl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        br.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         //Wait for driver to press start
         waitForStart();
@@ -62,8 +56,7 @@ public class FPNearBlue extends LinearOpMode {
         //Steps go here
         while(opModeIsActive()){
             Telemetry();
-            //DriveForward(0.5, 24);
-            DriveForward(0.5, 4);
+            DriveForward(0.5, 24);
             sleep(1000);
             FoundationGrab();
             sleep(1000);
@@ -89,7 +82,7 @@ public class FPNearBlue extends LinearOpMode {
         //Convert distance to ticks
         int ticks = (int)((1120)/(3*3.14159))*(distance);
 
-        //Set the amount of ticks for the wheels to go
+        //Set target position
         fl.setTargetPosition(ticks);
         fr.setTargetPosition(ticks);
         bl.setTargetPosition(ticks);
@@ -107,28 +100,30 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        //Sets power of motors
-        fl.setPower(power);
-        fr.setPower(power);
-        bl.setPower(power);
-        br.setPower(power);
-
-        while((fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy()) && opModeIsActive()) {
+        while(flPos < ticks && frPos < ticks && blPos < ticks && brPos < ticks && opModeIsActive()) {
             //Telemetry to show where the wheels are
             telemetry.addData("flPos", flPos);
             telemetry.addData("frPos", frPos);
             telemetry.addData("blPos", blPos);
             telemetry.addData("brPos", brPos);
-            telemetry.update();
-            idle();
+
+            //While all encoder counts are less than the amount given
+            fl.setPower(power);
+            fr.setPower(power);
+            bl.setPower(power);
+            br.setPower(power);
+
+            //Get current position to update the position values
+            flPos = fl.getCurrentPosition();
+            frPos = fr.getCurrentPosition();
+            blPos = bl.getCurrentPosition();
+            brPos = br.getCurrentPosition();
         }
 
-        RobotLog.dd("Test", "Test");
-
-        fl.setPower(0.0);
-        fr.setPower(0.0);
-        bl.setPower(0.0);
-        br.setPower(0.0);
+        fl.setPower(0);
+        fr.setPower(0);
+        bl.setPower(0);
+        br.setPower(0);
 
         fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -165,18 +160,12 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy() && opModeIsActive()) {
-            //Telemetry to show where the wheels are
-            telemetry.addData("flPos", flPos);
-            telemetry.addData("frPos", frPos);
-            telemetry.addData("blPos", blPos);
-            telemetry.addData("brPos", brPos);
-
+        while(blPos < ticks & flPos < ticks & brPos < ticks & frPos < ticks) {
             //While all encoder counts are less than the amount given
-            fl.setPower(-power);
-            fr.setPower(-power);
-            bl.setPower(-power);
-            br.setPower(-power);
+            fl.setPower(power);
+            fr.setPower(power);
+            bl.setPower(power);
+            br.setPower(power);
 
             //Get current position
             flPos = fl.getCurrentPosition();
@@ -220,7 +209,7 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy() && opModeIsActive()) {
+        while(flPos > -ticks && frPos < ticks && blPos < ticks && brPos > -ticks && opModeIsActive()) {
             //Telemetry to show where the wheels are
             telemetry.addData("flPos", flPos);
             telemetry.addData("frPos", frPos);
@@ -275,7 +264,7 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy() && opModeIsActive()) {
+        while(flPos < ticks && frPos > -ticks && blPos > -ticks && brPos < ticks && opModeIsActive()) {
             //Telemetry to show where the wheels are
             telemetry.addData("flPos", flPos);
             telemetry.addData("frPos", frPos);
@@ -330,7 +319,7 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(fl.isBusy() || fr.isBusy() || bl.isBusy() || br.isBusy() && opModeIsActive()) {
+        while(flPos > -ticks && frPos < ticks && blPos > -ticks && brPos < ticks && opModeIsActive()) {
             //Telemetry to show where the wheels are
             telemetry.addData("flPos", flPos);
             telemetry.addData("frPos", frPos);
@@ -384,7 +373,7 @@ public class FPNearBlue extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(flPos < ticks && frPos < ticks && blPos < ticks && brPos < ticks && opModeIsActive()) {
+        while(flPos < ticks && frPos > -ticks && blPos < ticks && brPos > -ticks && opModeIsActive()) {
             //Telemetry to show where the wheels are
             telemetry.addData("flPos", flPos);
             telemetry.addData("frPos", frPos);

@@ -10,3 +10,6 @@ frPos = Front right wheel position (used for encoders)
 blPos = Back left wheel position (used for encoders)
 brPos = Back right wheel position (used for encoders)
 
+To do 12/27:
+1. Try both copies of code, see if one works
+2. If neither works, look at telemetry to see if it is updating and getting closer to the value requested
