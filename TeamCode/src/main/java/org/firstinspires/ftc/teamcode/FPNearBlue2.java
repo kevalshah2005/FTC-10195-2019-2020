@@ -2,11 +2,9 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.*;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-
 
 @Autonomous(name="FPNearBlue2", group="Autonomous")
 //@Disabled
@@ -35,6 +33,7 @@ public class FPNearBlue2 extends LinearOpMode {
         fl.setDirection(DcMotor.Direction.REVERSE);
         bl.setDirection(DcMotor.Direction.REVERSE);
 
+        //Run motors using encoders
         fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -43,6 +42,9 @@ public class FPNearBlue2 extends LinearOpMode {
         //Initializing servos
         FoundationServo1 = hardwareMap.servo.get("servo1");
         FoundationServo2 = hardwareMap.servo.get("servo2");
+
+        //Reset servos
+        FoundationRelease();
 
         //Miscellaneous
 
@@ -60,14 +62,12 @@ public class FPNearBlue2 extends LinearOpMode {
 
         //Steps go here
         while(opModeIsActive()){
-            DriveForward(0.5, 24);
+            DriveForward(0.5, 32);
             sleep(500);
             FoundationGrab();
-            sleep(500);
-            DriveBackward(0.5, 22);
+            DriveBackward(0.5, 31);
             sleep(500);
             FoundationRelease();
-            sleep(500);
             DriveRight(0.5, 48);
             break;
         }
@@ -86,11 +86,14 @@ public class FPNearBlue2 extends LinearOpMode {
         //Convert distance to ticks
         int ticks = (int)((1120)/(3*3.14159))*(distance);
 
+        //Doubles power of front right wheel
+        int doublePower = (int) (2 * power);
+
         //Set target position
         fl.setTargetPosition(ticks);
-        fr.setTargetPosition(ticks);
+        fr.setTargetPosition(ticks + 238);
         bl.setTargetPosition(ticks);
-        br.setTargetPosition(ticks);
+        br.setTargetPosition(ticks + 238);
 
         //Get current position
         int flPos = fl.getCurrentPosition();
@@ -113,9 +116,9 @@ public class FPNearBlue2 extends LinearOpMode {
 
             //While all encoder counts are less than the amount given
             fl.setPower(power);
-            fr.setPower(power);
+            fr.setPower(doublePower);
             bl.setPower(power);
-            br.setPower(power);
+            br.setPower(doublePower);
 
             //Get current position to update the position values
             flPos = fl.getCurrentPosition();
@@ -146,11 +149,14 @@ public class FPNearBlue2 extends LinearOpMode {
         //Convert distance to ticks
         int ticks = (int)((1120)/(3*3.14159))*(distance);
 
+        //Doubles power of front right wheel
+        int doublePower = (int) (2 * power);
+
         //Set target position
         fl.setTargetPosition(-ticks);
-        fr.setTargetPosition(-ticks);
+        fr.setTargetPosition(-ticks - 238);
         bl.setTargetPosition(-ticks);
-        br.setTargetPosition(-ticks);
+        br.setTargetPosition(-ticks - 238);
 
         //Get current position
         int flPos = fl.getCurrentPosition();
@@ -173,9 +179,9 @@ public class FPNearBlue2 extends LinearOpMode {
 
             //While all encoder counts are less than the amount given
             fl.setPower(-power);
-            fr.setPower(-power);
+            fr.setPower(-doublePower);
             bl.setPower(-power);
-            br.setPower(-power);
+            br.setPower(-doublePower);
 
             //Get current position to update the position values
             flPos = fl.getCurrentPosition();
@@ -206,11 +212,14 @@ public class FPNearBlue2 extends LinearOpMode {
         //Convert distance to ticks
         int ticks = (int)((1120)/(3*3.14159))*(distance);
 
+        //Doubles power of front right wheel
+        int doublePower = (int) (2 * power);
+
         //Set target position
         fl.setTargetPosition(-ticks);
-        fr.setTargetPosition(ticks);
+        fr.setTargetPosition(ticks + 238);
         bl.setTargetPosition(ticks);
-        br.setTargetPosition(-ticks);
+        br.setTargetPosition(-ticks - 238);
 
         //Get current position
         int flPos = fl.getCurrentPosition();
@@ -233,9 +242,9 @@ public class FPNearBlue2 extends LinearOpMode {
 
             //While all encoder counts are less than the amount given
             fl.setPower(-power);
-            fr.setPower(power);
+            fr.setPower(doublePower);
             bl.setPower(power);
-            br.setPower(-power);
+            br.setPower(-doublePower);
 
             //Get current position to update the position values
             flPos = fl.getCurrentPosition();
@@ -266,11 +275,14 @@ public class FPNearBlue2 extends LinearOpMode {
         //Convert distance to ticks
         int ticks = (int)((1120)/(3*3.14159))*(distance);
 
+        //Doubles power of front right wheel
+        int doublePower = (int) (2 * power);
+
         //Set target position
         fl.setTargetPosition(ticks);
-        fr.setTargetPosition(-ticks);
+        fr.setTargetPosition(-ticks - 238);
         bl.setTargetPosition(-ticks);
-        br.setTargetPosition(ticks);
+        br.setTargetPosition(ticks + 238);
 
         //Get current position
         int flPos = fl.getCurrentPosition();
@@ -293,9 +305,9 @@ public class FPNearBlue2 extends LinearOpMode {
 
             //While all encoder counts are less than the amount given
             fl.setPower(power);
-            fr.setPower(-power);
+            fr.setPower(-doublePower);
             bl.setPower(-power);
-            br.setPower(power);
+            br.setPower(doublePower);
 
             //Get current position
             flPos = fl.getCurrentPosition();
@@ -326,11 +338,14 @@ public class FPNearBlue2 extends LinearOpMode {
         //Convert distance to ticks
         int ticks = (int)((1120)/(3*3.14159))*(distance);
 
+        //Doubles power of front right wheel
+        int doublePower = (int) (2 * power);
+
         //Set target position
         fl.setTargetPosition(-ticks);
-        fr.setTargetPosition(ticks);
+        fr.setTargetPosition(ticks + 238);
         bl.setTargetPosition(-ticks);
-        br.setTargetPosition(ticks);
+        br.setTargetPosition(ticks + 238);
 
         //Get current position
         int flPos = fl.getCurrentPosition();
@@ -353,9 +368,9 @@ public class FPNearBlue2 extends LinearOpMode {
 
             //While all encoder counts are less than the amount given
             fl.setPower(-power);
-            fr.setPower(power);
+            fr.setPower(doublePower);
             bl.setPower(-power);
-            br.setPower(power);
+            br.setPower(doublePower);
 
             //Get current position
             flPos = fl.getCurrentPosition();
@@ -385,11 +400,14 @@ public class FPNearBlue2 extends LinearOpMode {
         //Convert distance to ticks
         int ticks = (int)((1120)/(3*3.14159))*(distance);
 
+        //Doubles power of front right wheel
+        int doublePower = (int) (2 * power);
+
         //Set target position
         fl.setTargetPosition(ticks);
-        fr.setTargetPosition(-ticks);
+        fr.setTargetPosition(-ticks - 238);
         bl.setTargetPosition(ticks);
-        br.setTargetPosition(-ticks);
+        br.setTargetPosition(-ticks - 238);
 
         //Get current position
         int flPos = fl.getCurrentPosition();
@@ -412,9 +430,9 @@ public class FPNearBlue2 extends LinearOpMode {
 
             //While all encoder counts are less than the amount given
             fl.setPower(power);
-            fr.setPower(-power);
+            fr.setPower(-doublePower);
             bl.setPower(power);
-            br.setPower(-power);
+            br.setPower(-doublePower);
 
             //Get current position
             flPos = fl.getCurrentPosition();
@@ -437,17 +455,37 @@ public class FPNearBlue2 extends LinearOpMode {
     public void FoundationGrab()
     {
         //Grab foundation
-        FoundationServo1.setPosition(1); //Works
-        FoundationServo2.setPosition(-0.8);
-        sleep(3000);
+        FoundationServo1.setPosition(0.8); //Works
+        FoundationServo2.setPosition(0.1);
+        sleep(1000);
     }
 
     public void FoundationRelease()
     {
         //Release foundation
-        FoundationServo1.setPosition(0.2);
-        FoundationServo2.setPosition(0.6);
+        FoundationServo1.setPosition(0.2); //Works
+        FoundationServo2.setPosition(0.6); //Works
         sleep(1000);
+    }
+
+    public void ArmUp()
+    {
+        //
+    }
+
+    public void ArmDown()
+    {
+        //
+    }
+
+    public void ArmOut()
+    {
+        //
+    }
+
+    public void ArmIn()
+    {
+        //
     }
 
     public void Telemetry()
