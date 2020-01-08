@@ -70,14 +70,17 @@ public class FPNearBlue extends LinearOpMode {
 
         //Steps go here
         while(opModeIsActive()){
-            DriveForward(1, 32);
+            DriveForward(0.7, 16);
+            TurnLeft(0.7, 1*Math.PI);
+            DriveLeft(0.7,10);
+            DriveForward(0.7, 13);
             sleep(500);
             FoundationGrab();
-            DriveBackward(1, 44);
-            TurnLeft(1, 1.5*Math.PI);
+            DriveBackward(0.7, 48);
+            TurnLeft(0.7, 1.5*Math.PI);
             sleep(500);
             FoundationRelease();
-            DriveRight(0.5, 48);
+            DriveRight(0.7, 48);
             break;
         }
 
@@ -95,7 +98,7 @@ public class FPNearBlue extends LinearOpMode {
         //Convert distance to ticks
         int ticks = (int)((1120)/(3*3.14159))*(distance);
 
-        int doublePower = (int) (2.5 * power);
+        int doublePower = (int) (3 * power);
 
         //Set target position
         fl.setTargetPosition(ticks);
@@ -162,7 +165,7 @@ public class FPNearBlue extends LinearOpMode {
         //Convert distance to ticks
         int ticks = (int)((1120)/(3*3.14159))*(distance);
 
-        int doublePower = (int) (2.5 * power);
+        int doublePower = (int) (3 * power);
 
         //Set target position
         fl.setTargetPosition(-ticks);
@@ -201,7 +204,7 @@ public class FPNearBlue extends LinearOpMode {
         //Convert distance to ticks
         int ticks = (int)((1120)/(3*3.14159))*(distance);
 
-        int doublePower = (int) (2.5 * power);
+        int doublePower = (int) (3 * power);
 
         //Set target position
         fl.setTargetPosition(-ticks);
@@ -263,7 +266,7 @@ public class FPNearBlue extends LinearOpMode {
         //Convert distance to ticks
         int ticks = (int)((1120)/(3*3.14159))*(distance);
 
-        int doublePower = (int) (2.5 * power);
+        int doublePower = (int) (3 * power);
 
         //Set target position
         fl.setTargetPosition(ticks);
@@ -325,7 +328,7 @@ public class FPNearBlue extends LinearOpMode {
         //Convert distance to ticks
         double ticks = (int)((1120)/(3*3.14159))*(distance);
 
-        int doublePower = (int) (2.5 * power);
+        int doublePower = (int) (3 * power);
 
         //Set target position
         fl.setTargetPosition((int) (-ticks));
@@ -386,7 +389,7 @@ public class FPNearBlue extends LinearOpMode {
         //Convert distance to ticks
         int ticks = (int)((1120)/(3*3.14159))*(distance);
 
-        int doublePower = (int) (2.5 * power);
+        int doublePower = (int) (3 * power);
 
         //Set target position
         fl.setTargetPosition(ticks);

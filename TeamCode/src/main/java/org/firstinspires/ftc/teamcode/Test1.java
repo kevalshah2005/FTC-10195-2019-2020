@@ -42,8 +42,8 @@ public class Test1 extends LinearOpMode {
         }
 
     }
-    public void DriveBackward(double power, double distance)
-    {
+
+    public void DriveBackward(double power, double distance) {
         fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -56,7 +56,7 @@ public class Test1 extends LinearOpMode {
         br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Convert distance to ticks
-        int ticks = (int)(((1120)/(3*Math.PI))*(distance));
+        int ticks = (int) (((1120) / (3 * Math.PI)) * (distance));
 
         //Set target position
         fl.setTargetPosition(-ticks);
@@ -75,7 +75,7 @@ public class Test1 extends LinearOpMode {
         bl.setPower(-power);
         br.setPower(-power);
 
-        while((fl.isBusy()&&fr.isBusy())&&(bl.isBusy()&&br.isBusy())){
+        while ((fl.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
         }
 
         fl.setPower(0);
