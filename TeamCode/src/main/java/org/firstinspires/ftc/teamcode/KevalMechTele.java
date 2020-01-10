@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode;
-import com.qualcomm.robotcore.eventloop.opmode.*;
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+
 import static android.os.SystemClock.sleep;
 
 @TeleOp(name = "KevalMechTele", group = "e")
@@ -41,10 +44,10 @@ public class KevalMechTele extends OpMode {
         //gamepad 2 left stick for controlling slides
         //gamepad 2 right stick for controlling grabbing/releasing
         //both gamepads a = grab, y = release
-        fl.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x)*2);
-        fr.setPower((-gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x)*2);
-        bl.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x)*2);
-        br.setPower((-gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x)*2);
+        fl.setPower((gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x));
+        fr.setPower((-gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x));
+        bl.setPower((gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x));
+        br.setPower((-gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x));
 
         if (gamepad2.dpad_up) {
             RotateSlide.setPower(0.5);
@@ -55,14 +58,14 @@ public class KevalMechTele extends OpMode {
         }
 
 
-        while(gamepad1.x) {
+        while(gamepad2.a) {
             //Release
             grableft.setPosition(0.7);
             grabright.setPosition(0.3);
             sleep(500);
             break;
         }
-        while(gamepad1.a){
+        while(gamepad2.y){
             //Grab
             grableft.setPosition(0.25);
             grabright.setPosition(0.75);

@@ -15,23 +15,27 @@ public class Functions {
     //Declare servos
     Servo FoundationServo1;
     Servo FoundationServo2;
-    Servo GrabLeft;
-    Servo GrabRight;
 
     //Methods for moving
 
-    public Functions (DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br){
+    public Functions (DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, Servo FoundationServo1,
+                      Servo FoundationServo2){
         this.fl = fl;
-        this.bl = bl;
         this.fr = fr;
+        this.bl = bl;
         this.br = br;
+        this.FoundationServo1 = FoundationServo1;
+        this.FoundationServo2 = FoundationServo2;
     }
 
-    public void resetFunctions (DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br){
+    public void resetFunctions (DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, Servo FoundationServo1,
+                                Servo FoundationServo2) {
         this.fl = fl;
-        this.bl = bl;
         this.fr = fr;
+        this.bl = bl;
         this.br = br;
+        this.FoundationServo1 = FoundationServo1;
+        this.FoundationServo2 = FoundationServo2;
     }
 
     public void DriveForward(double power, int distance)
@@ -66,8 +70,8 @@ public class Functions {
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         while(flPos < ticks && frPos < ticks && blPos < ticks && brPos < ticks) {
-            //Telemetry to show where the wheels are
-                             //While all encoder counts are less than the amount given
+
+            //While all encoder counts are less than the amount given
             fl.setPower(power);
             fr.setPower(doublePower);
             bl.setPower(power);
@@ -382,21 +386,6 @@ public class Functions {
         FoundationServo2.setPosition(0.6); //Works
     }
 
-    public void GrabBlock()
-    {
-        //Grabs a block once it is in position
-        GrabLeft.setPosition(0.25);
-        GrabRight.setPosition(0.75);
-
-    }
-
-    public void ReleaseBlock()
-    {
-        //Releases the block on top of the foundation
-        GrabLeft.setPosition(0.7);
-        GrabRight.setPosition(0.3);
-
-    }
     public void ArmOut()
     {
         //Moves the grabbing mechanism outward

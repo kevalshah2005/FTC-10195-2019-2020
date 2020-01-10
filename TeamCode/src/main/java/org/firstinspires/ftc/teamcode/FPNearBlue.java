@@ -21,11 +21,9 @@ public class FPNearBlue extends LinearOpMode {
     //Declare servos
     Servo FoundationServo1;
     Servo FoundationServo2;
-    Servo GrabLeft;
-    Servo GrabRight;
 
-    Functions movement = new Functions(null, null, null, null);
-
+    Functions movement = new Functions(null, null, null, null,
+            null, null);
 
     public void runOpMode() {
 
@@ -36,8 +34,8 @@ public class FPNearBlue extends LinearOpMode {
         FoundationServo1 = hardwareMap.servo.get("servo1");
         FoundationServo2 = hardwareMap.servo.get("servo2");
         ExtendSlide = hardwareMap.dcMotor.get("RotateSlide");
-        GrabLeft = hardwareMap.servo.get("grableft");
-        GrabRight = hardwareMap.servo.get("grabright");
+
+        movement.resetFunctions(fl, fr, bl, br, FoundationServo1, FoundationServo2);
 
         //Reverse motors
         fl.setDirection(DcMotor.Direction.REVERSE);
@@ -52,8 +50,6 @@ public class FPNearBlue extends LinearOpMode {
         //Initializing servos
         FoundationServo1 = hardwareMap.servo.get("servo1");
         FoundationServo2 = hardwareMap.servo.get("servo2");
-
-        movement.resetFunctions(fl, fr, bl, br);
 
         //Reset servos
         movement.FoundationRelease();
@@ -75,20 +71,25 @@ public class FPNearBlue extends LinearOpMode {
         //Steps go here
         while (opModeIsActive()) {
             movement.DriveForward(0.7, 16);
-            movement.TurnLeft(0.7, 1 * Math.PI);
-            movement.DriveRight(0.7, 14);
+            sleep(500);
+            movement.TurnLeft(0.7, 10);
+            sleep(500);
+            movement.DriveLeft(0.7, 14);
+            sleep(500);
             movement.DriveForward(0.7, 13);
             sleep(500);
             movement.FoundationGrab();
-            movement.DriveBackward(0.7, 48);
-            movement.TurnRight(0.7, 1.5 * Math.PI);
+            sleep(500);
+            movement.DriveBackward(0.7, 44);
+            sleep(500);
+            movement.TurnRight(0.7, 30);
             sleep(500);
             movement.FoundationRelease();
-            movement.DriveLeft(0.7, 48);
-            movement.DriveForward(0.7, 24);
+            movement.DriveRight(0.7, 58);
+            sleep(500);
+            movement.DriveBackward(0.7, 24);
             break;
         }
-
     }
 }
     
