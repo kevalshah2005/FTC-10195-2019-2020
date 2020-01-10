@@ -59,14 +59,14 @@ public class KevalMechTele extends OpMode {
 
 
         while(gamepad2.a) {
-            //Release
-            grableft.setPosition(0.7);
-            grabright.setPosition(0.3);
+            //Release block
+            grableft.setPosition(0.6);
+            grabright.setPosition(0.4);
             sleep(500);
             break;
         }
         while(gamepad2.y){
-            //Grab
+            //Grab block
             grableft.setPosition(0.25);
             grabright.setPosition(0.75);
             sleep(500);
