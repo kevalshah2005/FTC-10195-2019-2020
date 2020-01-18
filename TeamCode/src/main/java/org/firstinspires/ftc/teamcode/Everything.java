@@ -1,36 +1,10 @@
-/* Copyright (c) 2019 FIRST. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted (subject to the limitations in the disclaimer below) provided that
- * the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list
- * of conditions and the following disclaimer.
- *
- * Redistributions in binary form must reproduce the above copyright notice, this
- * list of conditions and the following disclaimer in the documentation and/or
- * other materials provided with the distribution.
- *
- * Neither the name of FIRST nor the names of its contributors may be used to endorse or
- * promote products derived from this software without specific prior written permission.
- *
- * NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS
- * LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
@@ -80,16 +54,9 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  */
 
 
-@TeleOp(name="SKYSTONE Vuforia Nav", group ="Concept")
+@Autonomous(name="Everything", group ="Concept")
 //@Disabled
-public class Vuforia extends LinearOpMode {
-
-    public Vuforia() {
-    }
-
-    public void resetVuforia() {
-
-    }
+public class Everything extends LinearOpMode {
 
     // IMPORTANT:  For Phone Camera, set 1) the camera source and 2) the orientation, based on how your phone is mounted:
     // 1) Camera Source.  Valid choices are:  BACK (behind screen) or FRONT (selfie side)
@@ -144,10 +111,93 @@ public class Vuforia extends LinearOpMode {
     private float phoneYRotate = 0;
     private float phoneZRotate = 0;
 
-    String skystonePos = "";
+    String skystonePos = "none";
 
-    @Override
-    public void runOpMode() {
+    //Declare motors
+    DcMotor fl; //Front left wheel
+    DcMotor fr; //Front right wheel
+    DcMotor bl; //Back left wheel
+    DcMotor br; //Back right wheel
+    DcMotor ExtendSlide;
+
+    ElapsedTime eTime = new ElapsedTime();
+
+    //Declare servos
+    Servo FoundationServo1;
+    Servo FoundationServo2;
+
+    Functions movement = new Functions(null, null, null, null,
+            null, null, null);
+
+    public void runOpMode(){
+
+        fl = hardwareMap.dcMotor.get("fl");
+        fr = hardwareMap.dcMotor.get("fr");
+        bl = hardwareMap.dcMotor.get("bl");
+        br = hardwareMap.dcMotor.get("br");
+        FoundationServo1 = hardwareMap.servo.get("servo1");
+        FoundationServo2 = hardwareMap.servo.get("servo2");
+        ExtendSlide = hardwareMap.dcMotor.get("slide");
+
+        movement.resetFunctions(fl, fr, bl, br, ExtendSlide, FoundationServo1, FoundationServo2);
+
+        //Reverse motors
+        fl.setDirection(DcMotor.Direction.REVERSE);
+        bl.setDirection(DcMotor.Direction.REVERSE);
+
+        //Run motors using encoders
+        fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        //Initializing servos
+        FoundationServo1 = hardwareMap.servo.get("servo1");
+        FoundationServo2 = hardwareMap.servo.get("servo2");
+
+        //Reset servos
+        movement.FoundationRelease();
+
+        //Miscellaneous
+
+        //Wait for driver to press start
+        waitForStart();
+
+        //Reset encoders
+        fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //Telemetry
+        movement.Telemetry();
+
+        //Steps go here
+        if (opModeIsActive()) {
+            movement.DriveForward(0.7, 20);
+            sleep(500);
+            movement.TurnLeft(0.7, 5);
+            eTime.reset();
+            while ((skystonePos == "none" && eTime.time() < 3)){
+                DetectSkystone();
+            }
+            if(skystonePos == "left" || eTime.time() < 6 ){
+                telemetry.addData("Position: ", skystonePos);
+                //movement.GrabBlock();
+                movement.DriveBackward(0.7, 20);
+
+            } else if(skystonePos == "center"){
+                telemetry.addData("Position: ", skystonePos);
+                movement.DriveRight(0.7, 8);
+            } else {
+                telemetry.addData("Position: ", skystonePos);
+                movement.DriveRight(0.7, 16);
+            }
+        }
+    }
+
+
+    public void DetectSkystone() {
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
@@ -328,7 +378,7 @@ public class Vuforia extends LinearOpMode {
         // Tap the preview window to receive a fresh image.
 
         targetsSkyStone.activate();
-        while (!isStopRequested()) {
+        while (eTime.time() < 4) {
 
             // check all the trackable targets to see which one (if any) is visible.
             targetVisible = false;
@@ -365,15 +415,19 @@ public class Vuforia extends LinearOpMode {
                 // Provide information about what the position of the skystone is
                 if (xPos < 0) {
                     skystonePos = "left";
-                } else if (xPos > 0) {
-                    skystonePos = "right";
-                } else {
+                    telemetry.addData("skystonePos", skystonePos);
+                } else{
                     skystonePos = "center";
+                    telemetry.addData("skystonePos", skystonePos);
                 }
 
                 // express the rotation of the robot in degrees.
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+            }
+            else{
+                skystonePos = "right";
+                telemetry.addData("skystonePos", skystonePos);
             }
             telemetry.update();
         }
@@ -381,6 +435,7 @@ public class Vuforia extends LinearOpMode {
         // Disable Tracking when we are done;
         targetsSkyStone.deactivate();
     }
+
 
     public String getSkystonePos() {
         return skystonePos;

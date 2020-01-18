@@ -20,7 +20,7 @@ public class KevalMechTele extends OpMode {
     Servo grableft;
     Servo grabright;
 
-
+    double flPower, frPower, blPower, brPower;
 
     @Override
     public void init() {
@@ -38,6 +38,9 @@ public class KevalMechTele extends OpMode {
     @Override
     public void loop() {
         // The left joystick to move forward/backward/left/right, right joystick to move turn
+
+        //Slow mode
+
 
         //gamepad 1 controls movement and foundation servos
         //gamepad 2 controls rotating the linear slides and grabbing blocks
@@ -95,6 +98,12 @@ public class KevalMechTele extends OpMode {
         telemetry.addData("Servo 1 Position", FoundationServo1.getPosition());
         telemetry.addData("Servo 2 Position", FoundationServo2.getPosition());
         telemetry.addData("Status", "Running");
+        telemetry.update();
+
+        telemetry.addData("fl", fl.getCurrentPosition());
+        telemetry.addData("fr", fr.getCurrentPosition());
+        telemetry.addData("bl", bl.getCurrentPosition());
+        telemetry.addData("br", br.getCurrentPosition());
         telemetry.update();
     }
 }

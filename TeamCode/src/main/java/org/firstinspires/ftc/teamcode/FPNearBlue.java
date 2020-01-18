@@ -23,7 +23,7 @@ public class FPNearBlue extends LinearOpMode {
     Servo FoundationServo2;
 
     Functions movement = new Functions(null, null, null, null,
-            null, null);
+            null, null, null);
 
     public void runOpMode() {
 
@@ -33,9 +33,9 @@ public class FPNearBlue extends LinearOpMode {
         br = hardwareMap.dcMotor.get("br");
         FoundationServo1 = hardwareMap.servo.get("servo1");
         FoundationServo2 = hardwareMap.servo.get("servo2");
-        ExtendSlide = hardwareMap.dcMotor.get("RotateSlide");
+        ExtendSlide = hardwareMap.dcMotor.get("slide");
 
-        movement.resetFunctions(fl, fr, bl, br, FoundationServo1, FoundationServo2);
+        movement.resetFunctions(fl, fr, bl, br, ExtendSlide, FoundationServo1, FoundationServo2);
 
         //Reverse motors
         fl.setDirection(DcMotor.Direction.REVERSE);
@@ -80,14 +80,14 @@ public class FPNearBlue extends LinearOpMode {
             sleep(500);
             movement.FoundationGrab();
             sleep(500);
-            movement.DriveBackward(0.7, 44);
+            movement.DriveBackward(0.7, 40);
             sleep(500);
             movement.TurnRight(0.7, 30);
             sleep(500);
             movement.FoundationRelease();
             movement.DriveRight(0.7, 58);
             sleep(500);
-            movement.DriveBackward(0.7, 24);
+            movement.DriveBackward(0.7, 20);
             break;
         }
     }

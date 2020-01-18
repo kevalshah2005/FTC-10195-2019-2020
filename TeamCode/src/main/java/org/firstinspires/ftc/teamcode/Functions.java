@@ -20,28 +20,29 @@ public class Functions {
 
     //Methods for moving
 
-    public Functions (DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, Servo FoundationServo1,
-                      Servo FoundationServo2){
+    public Functions(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, DcMotor ExtendSlide,
+                     Servo FoundationServo1, Servo FoundationServo2) {
         this.fl = fl;
         this.fr = fr;
         this.bl = bl;
         this.br = br;
+        this.ExtendSlide = ExtendSlide;
         this.FoundationServo1 = FoundationServo1;
         this.FoundationServo2 = FoundationServo2;
     }
 
-    public void resetFunctions (DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, Servo FoundationServo1,
-                                Servo FoundationServo2) {
+    public void resetFunctions(DcMotor fl, DcMotor fr, DcMotor bl, DcMotor br, DcMotor ExtendSlide,
+                               Servo FoundationServo1, Servo FoundationServo2) {
         this.fl = fl;
         this.fr = fr;
         this.bl = bl;
         this.br = br;
+        this.ExtendSlide = ExtendSlide;
         this.FoundationServo1 = FoundationServo1;
         this.FoundationServo2 = FoundationServo2;
     }
 
-    public void DriveForward(double power, int distance)
-    {
+    public void DriveForward(double power, int distance) {
         //Reset encoders
         fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -49,7 +50,7 @@ public class Functions {
         br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Convert distance to ticks
-        int ticks = (int)((1120)/(3*3.14159))*(distance);
+        int ticks = (int) ((1120) / (3 * 3.14159)) * (distance);
 
         int doublePower = (int) (3 * power);
 
@@ -71,7 +72,7 @@ public class Functions {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(flPos < ticks && frPos < ticks && blPos < ticks && brPos < ticks) {
+        while (flPos < ticks && frPos < ticks && blPos < ticks && brPos < ticks) {
 
             //While all encoder counts are less than the amount given
             fl.setPower(power);
@@ -97,8 +98,7 @@ public class Functions {
         br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void DriveBackward(double power, int distance)
-    {
+    public void DriveBackward(double power, int distance) {
         fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -111,7 +111,7 @@ public class Functions {
         br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Convert distance to ticks
-        int ticks = (int)((1120)/(3*3.14159))*(distance);
+        int ticks = (int) ((1120) / (3 * 3.14159)) * (distance);
 
         int doublePower = (int) (3 * power);
 
@@ -132,7 +132,7 @@ public class Functions {
         bl.setPower(-power);
         br.setPower(-doublePower);
 
-        while((fl.isBusy()&&fr.isBusy())&&(bl.isBusy()&&br.isBusy())){
+        while ((fl.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
         }
 
         fl.setPower(0);
@@ -141,8 +141,7 @@ public class Functions {
         br.setPower(0);
     }
 
-    public void DriveLeft(double power, int distance)
-    {
+    public void DriveLeft(double power, int distance) {
         //Reset encoders
         fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -150,7 +149,7 @@ public class Functions {
         br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Convert distance to ticks
-        int ticks = (int)((1120)/(3*3.14159))*(distance);
+        int ticks = (int) ((1120) / (3 * 3.14159)) * (distance);
 
         int doublePower = (int) (3 * power);
 
@@ -172,9 +171,9 @@ public class Functions {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(flPos > -ticks && frPos < ticks && blPos < ticks && brPos > -ticks) {
+        while (flPos > -ticks && frPos < ticks && blPos < ticks && brPos > -ticks) {
             //Telemetry to show where the wheels are
-                             //While all encoder counts are less than the amount given
+            //While all encoder counts are less than the amount given
             fl.setPower(-power);
             fr.setPower(doublePower);
             bl.setPower(power);
@@ -198,8 +197,7 @@ public class Functions {
         br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void DriveRight(double power, int distance)
-    {
+    public void DriveRight(double power, int distance) {
         //Reset encoders
         fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -207,7 +205,7 @@ public class Functions {
         br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Convert distance to ticks
-        int ticks = (int)((1120)/(3*3.14159))*(distance);
+        int ticks = (int) ((1120) / (3 * 3.14159)) * (distance);
 
         int doublePower = (int) (3 * power);
 
@@ -229,9 +227,9 @@ public class Functions {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(flPos < ticks && frPos > -ticks && blPos > -ticks && brPos < ticks) {
+        while (flPos < ticks && frPos > -ticks && blPos > -ticks && brPos < ticks) {
             //Telemetry to show where the wheels are
-                             //While all encoder counts are less than the amount given
+            //While all encoder counts are less than the amount given
             fl.setPower(power);
             fr.setPower(-doublePower);
             bl.setPower(-power);
@@ -255,8 +253,7 @@ public class Functions {
         br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void TurnLeft(double power, double degrees)
-    {
+    public void TurnLeft(double power, double degrees) {
         //Reset encoders
         fl.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         fr.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -264,10 +261,10 @@ public class Functions {
         br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Convert degrees to distance
-        double distance = (degrees/360)*18*Math.PI;
+        double distance = (degrees / 360) * 18 * Math.PI;
 
         //Convert distance to ticks
-        double ticks = (int)((1120)/(3*3.14159))*(distance);
+        double ticks = (int) ((1120) / (3 * 3.14159)) * (distance);
 
         int doublePower = (int) (3 * power);
 
@@ -289,9 +286,9 @@ public class Functions {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(flPos > -ticks && frPos < ticks && blPos > -ticks && brPos < ticks) {
+        while (flPos > -ticks && frPos < ticks && blPos > -ticks && brPos < ticks) {
             //Telemetry to show where the wheels are
-                             //While all encoder counts are less than the amount given
+            //While all encoder counts are less than the amount given
             fl.setPower(-power);
             fr.setPower(doublePower);
             bl.setPower(-power);
@@ -323,10 +320,10 @@ public class Functions {
         br.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Convert degrees to distance
-        double distance = (degrees/360)*18*Math.PI;
+        double distance = (degrees / 360) * 18 * Math.PI;
 
         //Convert distance to ticks
-        double ticks = (int)((1120)/(3*3.14159))*(distance);
+        double ticks = (int) ((1120) / (3 * 3.14159)) * (distance);
 
         int doublePower = (int) (3 * power);
 
@@ -348,9 +345,9 @@ public class Functions {
         bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        while(flPos < ticks && frPos > -ticks && blPos < ticks && brPos > -ticks) {
+        while (flPos < ticks && frPos > -ticks && blPos < ticks && brPos > -ticks) {
             //Telemetry to show where the wheels are
-                             //While all encoder counts are less than the amount given
+            //While all encoder counts are less than the amount given
             fl.setPower(power);
             fr.setPower(-doublePower);
             bl.setPower(power);
@@ -374,35 +371,73 @@ public class Functions {
         br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void FoundationGrab()
-    {
+    public void FoundationGrab() {
         //Grab foundation
         FoundationServo1.setPosition(0.1);
         FoundationServo2.setPosition(0.75);
     }
 
-    public void FoundationRelease()
-    {
+    public void FoundationRelease() {
         //Release foundation
         FoundationServo1.setPosition(0.2); //Works
         FoundationServo2.setPosition(0.6); //Works
     }
 
-    public void ArmOut()
-    {
+    public void ArmOut(double power, int distance) {
         //Moves the grabbing mechanism outward
+        ExtendSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        ExtendSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //Convert distance to ticks
+        int ticks = (int) ((1120) / (3 * 3.14159)) * (distance);
+
+        //Set target position
+        ExtendSlide.setTargetPosition(ticks);
+
+        //Set mode to RUN_TO_POSITION
+        ExtendSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        ExtendSlide.setPower(power);
+
+        while ((fl.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
+        }
+
+        ExtendSlide.setPower(0);
     }
 
-    public void ArmIn()
-    {
+    public void ArmIn(double power, int distance) {
         //Moves the grabbing mechanism inward
+        ExtendSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        ExtendSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //Convert distance to ticks
+        int ticks = (int) ((1120) / (3 * 3.14159)) * (distance);
+
+        //Set target position
+        ExtendSlide.setTargetPosition(-ticks);
+
+        //Set mode to RUN_TO_POSITION
+        ExtendSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        ExtendSlide.setPower(-power);
+
+        while ((fl.isBusy() && fr.isBusy()) && (bl.isBusy() && br.isBusy())) {
+        }
+
+        ExtendSlide.setPower(0);
+    }
+
+    public void GrabBlock(){
 
     }
 
-    public void Telemetry()
-    {
+    public void ReleaseBlock(){
 
+    }
+
+    public void Telemetry(){
 
     }
 }

@@ -24,7 +24,7 @@ public class FPFarBlue extends LinearOpMode {
     Servo GrabLeft;
     Servo GrabRight;
 
-    Functions movement = new Functions(null, null, null, null, null, null);
+    Functions movement = new Functions(null, null, null, null, null, null, null);
 
     public void runOpMode() {
 
@@ -52,7 +52,7 @@ public class FPFarBlue extends LinearOpMode {
         FoundationServo1 = hardwareMap.servo.get("servo1");
         FoundationServo2 = hardwareMap.servo.get("servo2");
 
-        movement.resetFunctions(fl, fr, bl, br, FoundationServo1, FoundationServo2);
+        movement.resetFunctions(fl, fr, bl, br, ExtendSlide, FoundationServo1, FoundationServo2);
 
         //Reset servos
         movement.FoundationRelease();
